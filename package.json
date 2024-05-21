@@ -1,0 +1,16 @@
+{
+  "name": "multiselect",
+  "version": "0.0.0",
+  "main": "lib/multiselect.min.js",
+  "scripts": {
+    "build": "babel src/main.js -d lib && uglifyjs lib/main.js -o lib/main.min.js -c -m"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "uglify-js": "^3.9.4"
+  }
+}
