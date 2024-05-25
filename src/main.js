@@ -56,7 +56,7 @@ ss.textContent = `
     cursor: pointer;
   }
   
-  .multi_option_icon svg {
+  .multi_option_icon svg,.multi_option_icon img {
     width: 14px;
     height: 14px;
     background-color: #fff;
@@ -68,7 +68,7 @@ ss.textContent = `
     position: absolute;
     z-index: 9999;
     background: #fff;
-    max-height: 150px;
+    max-height: 203px;
     overflow-y: auto;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, .10);
   }
