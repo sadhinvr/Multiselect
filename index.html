@@ -6,7 +6,9 @@
   <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite App</title>
-
+  <style>
+    *{margin:0;padding:0;box-sizing: border-box;}
+  </style>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -15,6 +17,12 @@
 
     <form action="" method="post">
       hello
+
+      <select name="colors" id="colors" multiple class="multiselect_options">
+        <option value="red">red</option>
+        <option value="green">green</option>
+        <option value="blue">blue</option>
+      </select>
 
       <select name="colors" id="colors" multiple class="multiselect_options">
         <option value="red">red</option>
