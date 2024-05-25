@@ -11,11 +11,11 @@ ss.textContent = `
   .multiselect_options {
     padding: 6px;
     border: .5px solid #9d9d9d;
-    min-height: calc(1em + 6px);
+    min-height: 38px;
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-  
+    height: auto !important ;
   }
   
   .multi_option {
@@ -55,9 +55,6 @@ ss.textContent = `
   .multiselect_dropdown_box {
     display: none;
     position: absolute;
-    top: 100%;
-    right: 0px;
-    left: 0px;
     z-index: 9999;
     background: #fff;
     max-height: 300px;
@@ -118,28 +115,52 @@ function multiSelect(q, i) {
         select.insertAdjacentElement("afterend", inpBox);
 
         const multiSelectOptions = document.createElement("div");
-        multiSelectOptions.className = "multiselect_options";
+        multiSelectOptions.className = "multiselect_options text-field w-input";
         newSelect.appendChild(multiSelectOptions);
+        let multiSelectionRect = multiSelectOptions.getBoundingClientRect(),dropboxBottom= true;
+
+
 
         const dropDownBox = document.createElement("div");
         dropDownBox.className = "multiselect_dropdown_box";
-        newSelect.appendChild(dropDownBox);
+        document.body.appendChild(dropDownBox);
 
         const mousedown = (e) => {
             if (
                 e.target != multiSelectOptions &&
                 e.target.parentElement != multiSelectOptions &&
-                e.target.parentElement.parentElement != multiSelectOptions &&
+                e.target?.parentElement?.parentElement != multiSelectOptions &&
                 dropDownBox.classList.contains("active")
             ) {
                 dropDownBox.classList.remove("active");
             }
         };
-        window.addEventListener("mousedown", mousedown);
-
+        
         multiSelectOptions.addEventListener("mouseup", (e) => {
             dropDownBox.classList.toggle("active");
         });
+
+        window.addEventListener("mousedown", mousedown);
+        
+        
+        
+        window.addEventListener('resize', resize);
+
+        
+
+        window.addEventListener('scroll',boxPosition);
+
+        function boxPosition(){
+            dropDownBox.style.top = `${multiSelectionRect.y}px`;
+            dropDownBox.style.left = `${multiSelectionRect.x}px`;
+            dropDownBox.style.left = `${multiSelectionRect.x}px`;
+        }
+
+        boxPosition();
+
+        function resize(){
+            multiSelectionRect = multiSelectOptions.getBoundingClientRect();
+        }
 
         const remove = (e) => {
             e.preventDefault();
