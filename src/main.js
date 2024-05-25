@@ -1,3 +1,5 @@
+/*
+
 const ss = document.createElement("style");
 ss.textContent = `
 .multiselect {
@@ -288,3 +290,4 @@ function multiSelect(q, i) {
 
     selects.forEach(selectFun);
 }
+*/
