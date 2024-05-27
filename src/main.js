@@ -7,6 +7,7 @@ ss.textContent = `
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    width:100%;
   }
   
   .multiselect_options::after {
