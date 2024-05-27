@@ -1,5 +1,3 @@
-
-
 const ss = document.createElement("style");
 ss.textContent = `
 .multiselect {
@@ -119,19 +117,21 @@ function multiSelect(q, i) {
     const selects = document.querySelectorAll(q);
 
     function selectFun(select) {
-        const inpBox = document.createElement("div");
-        const inp = document.createElement("input");
-        inp.type = "text";
-        inp.name = select.name;
-        inp.dataset.name = inp.name;
-        inpBox.style = `visibility:hidden;width:0px;height:0px;overflow:hidden;margin:0px;padding:0px;border:none;outline:none;position:absolute;pointer-events:none;`;
-        select.style = `visibility:hidden;width:0px;height:0px;overflow:hidden;margin:0px;padding:0px;border:none;outline:none`;
+        // const inpBox = document.createElement("div");
+        // const inp = document.createElement("input");
+        // inp.type = "text";
+        // inp.value = "[]";
+        // inp.name = select.name;
+        // inp.dataset.name = inp.name;
+        // inpBox.style = `visibility:hidden;width:0px;height:0px;overflow:hidden;margin:0px;padding:0px;border:none;outline:none;position:absolute;pointer-events:none;`;
+        // select.style = `visibility:hidden;width:0px;height:0px;overflow:hidden;margin:0px;padding:0px;border:none;outline:none`;
+        
         const newSelect = document.createElement("div");
         newSelect.className = "multiselect";
 
         select.insertAdjacentElement("afterend", newSelect);
-        inpBox.appendChild(inp);
-        select.insertAdjacentElement("afterend", inpBox);
+        // inpBox.appendChild(inp);
+        // select.insertAdjacentElement("afterend", inpBox);
 
         const multiSelectOptions = document.createElement("div");
         multiSelectOptions.className = "multiselect_options text-field w-input";
@@ -183,7 +183,7 @@ function multiSelect(q, i) {
                 window.scrollY -
                 dropDownBox.getBoundingClientRect().height
             }px`;
-            
+
             if (
                 dropDownBox.getBoundingClientRect().bottom +
                     dropDownBox.getBoundingClientRect().height >=
@@ -218,19 +218,15 @@ function multiSelect(q, i) {
 
         boxPosition();
 
-        function resize() {
-            multiSelectionRect = multiSelectOptions.getBoundingClientRect();
-        }
-
         const remove = (e) => {
             e.preventDefault();
             e.stopPropagation();
             e.currentTarget.parentElement.remove();
-            let curValue = inp.value?inp.value.split(','):[];
+            let curValue = JSON.parse(inp.value);
             curValue = curValue.filter(
                 (item) => item !== e.currentTarget.dataset.value
             );
-            inp.value = curValue.join();
+            inp.value = JSON.stringify(curValue);
             console.log(inp.value);
             dropDownBox
                 .querySelector(
@@ -258,10 +254,14 @@ function multiSelect(q, i) {
                 );
                 multiSelectOptions.appendChild(mulOp);
 
-                const curValue = inp.value?inp.value.split(','):[];
+                JSON.parse(inp.value)
+                    .push(e.currentTarget.dataset.value)
+                    .toString();
+                const curValue = JSON.parse(inp.value);
                 curValue.push(e.currentTarget.dataset.value);
-                inp.value = curValue.join();
-                console.log(inp.value)
+                inp.value = JSON.stringify(curValue);
+                // console.log(inp.value);
+
                 e.currentTarget.classList.add("added");
             } else {
                 multiSelectOptions
@@ -281,7 +281,7 @@ function multiSelect(q, i) {
             md.addEventListener("mousedown", click);
         });
 
-        select.style.display = "none";
+        // select.style.display = "none";
     }
 
     selects.forEach(selectFun);
