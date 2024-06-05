@@ -86,7 +86,8 @@
                 if (ct.type == "url") {
                     url(e);
                 } else if (ct.classList.contains("mul_inp_hidden")) {
-                    var cls = ct.parentElement.nextElementSibling.classList;
+                    var cls = ct.parentElement.nextElementSibling.firstElementChild.classList;
+                    console.log('inside foreach')
                     if (ct.checkValidity()) {
                         cls.remove("inp-required");
                     } else {
@@ -108,8 +109,11 @@
                 cur.removeEventListener("change", onchangeforall);
 
                 if (cur.classList.contains("mul_inp_hidden")) {
-                    var cls = cur.parentElement.nextElementSibling.classList;
+                    var cls = cur.parentElement.nextElementSibling.firstElementChild.classList;
+
+                    console.log('inside foreach')
                     if (cur.checkValidity()) {
+
                         cls.remove("inp-required");
                     } else {
                         cls.add("inp-required");
