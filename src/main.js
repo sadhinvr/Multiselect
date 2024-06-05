@@ -123,6 +123,7 @@ function multiSelect(q, i) {
         const inp = document.createElement("input");
         inp.type = "text";
         inp.name = select.name;
+        inp.required = select.required;
         inp.dataset.name = inp.name;
         inpBox.style = `visibility:hidden;width:0px;height:0px;overflow:hidden;margin:0px;padding:0px;border:none;outline:none;position:absolute;pointer-events:none;`;
         select.style = `visibility:hidden;width:0px;height:0px;overflow:hidden;margin:0px;padding:0px;border:none;outline:none`;
@@ -231,6 +232,7 @@ function multiSelect(q, i) {
                 (item) => item !== e.currentTarget.dataset.value
             );
             inp.value = curValue.join();
+            inp.dispatchEvent(new Event('change'));
             console.log(inp.value);
             dropDownBox
                 .querySelector(
@@ -261,6 +263,7 @@ function multiSelect(q, i) {
                 const curValue = inp.value?inp.value.split(','):[];
                 curValue.push(e.currentTarget.dataset.value);
                 inp.value = curValue.join();
+                inp.dispatchEvent(new Event('change'));
                 console.log(inp.value)
                 e.currentTarget.classList.add("added");
             } else {

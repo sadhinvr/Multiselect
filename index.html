@@ -148,6 +148,8 @@
 
   <script src="src/main.js"></script>
 
+  
+
   <script>
     var i = ` <svg viewBox="0 0 511.76 511.76">
               <g>
@@ -178,7 +180,7 @@
     const b = document.getElementById('i');
     a.addEventListener('change', e => {
       const data = new FormData(b);
-      data.forEach((v,k)=>{
+      data.forEach((v, k) => {
         console.log(v);
       })
     })
