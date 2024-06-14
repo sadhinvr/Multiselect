@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "main": "lib/multiselect.min.js",
   "scripts": {
-    "build": "babel src/main.js -d lib && uglifyjs lib/main.js -o lib/main.min.js -c -m"
+    "build": "babel src/main.js -d lib && uglifyjs lib/main.js -o lib/main.min.js -c -m",
+    "buildslide": "babel slide.js -d dis && uglifyjs dis/slide.js -o dis/slide.min.js -c -m"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

@@ -1,26 +1,26 @@
+// ////////
+// const st = document.createElement("style");
+// st.textContent = `
+//         .inp-required{
+//             border:red solid 1px !important;
+//         }
+
+//         html{
+//             scroll-behavior: smooth;
+//         }
+//     `;
+// document.head.appendChild(st);
+
+//////////
+
 (function () {
-    // ////////
-    const st = document.createElement("style");
-    st.textContent = `
-        .inp-required{
-            border:red solid 1px;
-        }
-
-        html{
-            scroll-behavior: smooth;
-        }
-    `;
-    document.head.appendChild(st);
-
-    document.createElement("div").focus();
-    //////////
-
-    var a = document.querySelectorAll(".two-button"),
+    let a = document.querySelectorAll(".two-button"),
         dots = document.querySelector(".w-slider-nav.w-round").children,
         slideNo = 1;
+
     function url(e) {
-        var t = e.currentTarget;
-        var val = t.value.trim();
+        let t = e.currentTarget;
+        let val = t.value.trim().replace("http://", "");
         t.value = val;
 
         if (val) {
@@ -37,113 +37,112 @@
             }
         }
     }
-    function fun() {
-        function tel(e) {
-            var val = e.currentTarget.value;
-            if (val) {
-                console.log(val);
+    function onchangeforall(e) {
+        // console.log("hello ");
+        let ct = e.currentTarget;
+
+        if (ct.type == "url") {
+            url(e);
+        } else if (ct.classList.contains("mul_inp_hidden")) {
+            let cls =
+                ct.parentElement.nextElementSibling.firstElementChild.classList;
+            console.log("inside foreach");
+            if (ct.checkValidity()) {
+                cls.remove("inp-required");
+            } else {
+                cls.add("inp-required");
+                alltrue = false;
+            }
+        } else {
+            if (ct.checkValidity()) {
+                ct.classList.remove("inp-required");
+            } else {
+                ct.classList.add("inp-required");
+                alltrue = false;
             }
         }
-
-        const inpUrl = document.querySelectorAll('input[type="url"]');
-        const inpTel = document.querySelectorAll('input[type="tel"]');
-        inpTel.forEach((cur) => {
-            cur.addEventListener("change", tel);
-        });
-
-        inpUrl.forEach((cur) => {
-            cur.addEventListener("change", url);
-        });
     }
-
-    // fun();
-
     function changeSlide(e) {
-        var n = e.currentTarget.dataset.slide;
-        if (n > slideNo) {
-            const a = e.currentTarget.parentElement.parentElement;
-            const inpText = a.querySelectorAll('input[type="text"]');
-            const inpUrl = a.querySelectorAll('input[type="url"]');
-            const inpNum = a.querySelectorAll('input[type="number"]');
-            const inpTel = a.querySelectorAll('input[type="tel"]');
-            const select = a.querySelectorAll("select:not([multiple])");
-            const textarea = a.querySelectorAll("textarea");
-            const all = [
-                ...inpText,
-                ...inpUrl,
-                ...inpNum,
-                ...inpTel,
-                ...select,
-                ...textarea,
-            ];
+        let n = e.currentTarget.dataset.slide;
 
-            let alltrue = true;
+        if (n > 0 && n <= a.length) {
+            if (n > slideNo) {
+                const formHolder = e.currentTarget.parentElement.parentElement;
+                const inpText =
+                    formHolder.querySelectorAll('input[type="text"]');
+                const inpUrl = formHolder.querySelectorAll('input[type="url"]');
+                const inpNum = formHolder.querySelectorAll(
+                    'input[type="number"]'
+                );
+                const inpTel = formHolder.querySelectorAll('input[type="tel"]');
+                const select = formHolder.querySelectorAll(
+                    "select:not([multiple])"
+                );
+                const textarea = formHolder.querySelectorAll("textarea");
+                const all = [
+                    ...inpText,
+                    ...inpUrl,
+                    ...inpNum,
+                    ...inpTel,
+                    ...select,
+                    ...textarea,
+                ];
 
-            function onchangeforall(e) {
-                console.log("hello ");
-                var ct = e.currentTarget;
+                let alltrue = true;
 
-                if (ct.type == "url") {
-                    url(e);
-                } else if (ct.classList.contains("mul_inp_hidden")) {
-                    var cls = ct.parentElement.nextElementSibling.firstElementChild.classList;
-                    console.log('inside foreach')
-                    if (ct.checkValidity()) {
-                        cls.remove("inp-required");
+                // const allR = a.querySelector('[req]')
+                all.forEach((cur) => {
+                    if (cur.classList.contains("mul_inp_hidden")) {
+                        let cls =
+                            cur.parentElement.nextElementSibling
+                                .firstElementChild.classList;
+
+                        // console.log("inside foreach");
+                        if (cur.checkValidity()) {
+                            cls.remove("inp-required");
+                        } else {
+                            cls.add("inp-required");
+                            alltrue = false;
+                        }
                     } else {
-                        cls.add("inp-required");
-                        alltrue = false;
+                        if (cur.checkValidity()) {
+                            cur.classList.remove("inp-required");
+                        } else {
+                            cur.classList.add("inp-required");
+                            alltrue = false;
+                        }
                     }
-                } else {
-                    if (ct.checkValidity()) {
-                        ct.classList.remove("inp-required");
-                    } else {
-                        ct.classList.add("inp-required");
-                        alltrue = false;
-                    }
+
+                    setTimeout(() => {
+                        cur.removeEventListener("change", onchangeforall);
+                        // console.log("hellodjkdjfkdjkf");
+                    }, 100);
+
+                    setTimeout(() => {
+                        cur.addEventListener("change", onchangeforall);
+                        // console.log("wwww");
+                    }, 300);
+                });
+
+                alltrue || a.querySelector(".inp-required").focus();
+
+                if (alltrue) {
+                    dots[n - 1].click();
+                    slideNo = n;
                 }
+
+                // console.log(alltrue, n > 0, n <= a.length, a, slideNo);
+
+                // dots[0].click();
+            } else if (n < slideNo) {
+                dots[n - 1].click();
+                slideNo = n;
             }
-
-            // const allR = a.querySelector('[req]')
-            all.forEach((cur) => {
-                cur.removeEventListener("change", onchangeforall);
-
-                if (cur.classList.contains("mul_inp_hidden")) {
-                    var cls = cur.parentElement.nextElementSibling.firstElementChild.classList;
-
-                    console.log('inside foreach')
-                    if (cur.checkValidity()) {
-
-                        cls.remove("inp-required");
-                    } else {
-                        cls.add("inp-required");
-                        alltrue = false;
-                    }
-                } else {
-                    if (cur.checkValidity()) {
-                        cur.classList.remove("inp-required");
-                    } else {
-                        cur.classList.add("inp-required");
-                        alltrue = false;
-                    }
-                }
-
-                cur.addEventListener("change", onchangeforall);
-            });
-
-            alltrue || a.querySelector(".inp-required").focus();
-
-            alltrue &&
-                n > 0 &&
-                n <= a.length &&
-                dots[n - 1].click() &&
-                (slideNo = n);
-
-            dots[0].click();
         }
     }
+
     a.forEach((cur, i) => {
-        var btn = cur.children;
+        let btn = cur.children;
         btn[0].dataset.slide || (btn[0].dataset.slide = i);
         btn[1].dataset.slide || (btn[1].dataset.slide = i + 2);
         btn[0].addEventListener("click", changeSlide);
