@@ -36,7 +36,7 @@
     }
   }
   function onchangeforall(e) {
-    // console.log("hello ");
+    console.log("hello ");
     let ct = e.currentTarget;
     if (ct.type == "url") {
       url(e);
@@ -92,14 +92,8 @@
               alltrue = false;
             }
           }
-          setTimeout(() => {
-            cur.removeEventListener("change", onchangeforall);
-            // console.log("hellodjkdjfkdjkf");
-          }, 100);
-          setTimeout(() => {
-            cur.addEventListener("change", onchangeforall);
-            // console.log("wwww");
-          }, 300);
+          cur.removeEventListener("change", onchangeforall);
+          cur.addEventListener("change", onchangeforall);
         });
         alltrue || formHolder.querySelector(".inp-required").focus();
         if (alltrue) {
@@ -116,6 +110,9 @@
       }
     }
   }
+  document.querySelectorAll('input[type="url"]').forEach(cur => {
+    cur.addEventListener('change', onchangeforall);
+  });
   a.forEach((cur, i) => {
     let btn = cur.children;
     btn[0].dataset.slide || (btn[0].dataset.slide = i);

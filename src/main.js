@@ -234,7 +234,7 @@ function multiSelect(q, i) {
             );
             inp.value = curValue.join();
             inp.dispatchEvent(new Event('change'));
-            console.log(inp.value);
+            //console.log(inp.value);
             dropDownBox
                 .querySelector(
                     `[data-value="${e.currentTarget.dataset.value}"]`
@@ -265,7 +265,7 @@ function multiSelect(q, i) {
                 curValue.push(e.currentTarget.dataset.value);
                 inp.value = curValue.join();
                 inp.dispatchEvent(new Event('change'));
-                console.log(inp.value)
+                //console.log(inp.value)
                 e.currentTarget.classList.add("added");
             } else {
                 multiSelectOptions
