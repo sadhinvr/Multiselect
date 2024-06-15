@@ -101,7 +101,7 @@
             // console.log("wwww");
           }, 300);
         });
-        alltrue || a.querySelector(".inp-required").focus();
+        alltrue || formHolder.querySelector(".inp-required").focus();
         if (alltrue) {
           dots[n - 1].click();
           slideNo = n;
